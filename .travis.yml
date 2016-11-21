@@ -10,3 +10,4 @@ jdk:
 
 script:
   - gradle test
+  - mvn test
