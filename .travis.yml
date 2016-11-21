@@ -3,11 +3,9 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  - oraclejdk6
-  - openjdk8
   - openjdk7
   - openjdk6
 
 script:
-  - gradle assemble test
+  - gradle test
   - mvn test
