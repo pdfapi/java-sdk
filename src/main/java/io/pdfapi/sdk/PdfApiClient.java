@@ -34,11 +34,8 @@ public class PdfApiClient {
         HttpPost httpPost = new HttpPost(BASE_URL + "/v" + API_VERSION + request.getEndpoint());
         httpPost.addHeader("Authorization", "Basic " + new String(Base64.encodeBase64((":" + apiKey).getBytes())));
         httpPost.addHeader("Content-Type", "application/json");
-        try {
-            httpPost.setEntity(new StringEntity(new Gson().toJson(request.getBody()), Charset.defaultCharset()));
-        } catch (UnsupportedEncodingException e) {
-            throw new PdfApiClientException(e);
-        }
+
+        httpPost.setEntity(new StringEntity(new Gson().toJson(request.getBody()), Charset.defaultCharset()));
 
         HttpResponse response;
         try {
