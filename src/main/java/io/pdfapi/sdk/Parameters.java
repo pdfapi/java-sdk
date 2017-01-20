@@ -3,8 +3,11 @@ package io.pdfapi.sdk;
 import io.pdfapi.sdk.parameter.Margin;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
+import io.pdfapi.sdk.parameter.page.Page;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +21,7 @@ public class Parameters {
     private Size size;
     private Orientation orientation;
     private Margin margins;
+    private List<Page> pages = new ArrayList<Page>();
 
     Parameters() {
 
@@ -58,6 +62,10 @@ public class Parameters {
             margins.setParameters(map);
             this.setMargins(margins);
         }
+
+        if (parameters.containsKey("pages")) {
+            this.setPages((List<Page>) parameters.get("pages"));
+        }
     }
 
     public Map<String, Object> getParameters() {
@@ -68,6 +76,7 @@ public class Parameters {
         parameters.put("size", getSize());
         parameters.put("orientation", getOrientation());
         parameters.put("margins", margins != null ? margins.getParameters() : null);
+        parameters.put("pages", pages != null ? pages : null);
 
         return parameters;
     }
@@ -118,5 +127,17 @@ public class Parameters {
 
     void setMargins(Margin margins) {
         this.margins = margins;
+    }
+
+    void setPages(List<Page> pages) {
+        this.pages = pages;
+    }
+
+    void addPage(Page page) {
+        pages.add(page);
+    }
+
+    public List<Page> getPages() {
+        return pages;
     }
 }

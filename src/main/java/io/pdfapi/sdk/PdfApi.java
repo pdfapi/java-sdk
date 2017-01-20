@@ -4,12 +4,15 @@ import io.pdfapi.sdk.exception.PdfApiException;
 import io.pdfapi.sdk.parameter.Margin;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
+import io.pdfapi.sdk.parameter.page.Cover;
+import io.pdfapi.sdk.parameter.page.Page;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +20,7 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "1.0.0-SNAPSHOT";
+    public static String VERSION = "1.1.0-SNAPSHOT";
 
     private String apiKey;
     private Parameters parameters = new Parameters();
@@ -54,6 +57,14 @@ public class PdfApi {
         parameters.setMargins(margins);
     }
 
+    public void setPages(List<Page> pages) {
+        parameters.setPages(pages);
+    }
+
+    public void addPage(Page page) {
+        parameters.addPage(page);
+    }
+
     public void setParameters(Map<String, Object> parameters) {
         this.parameters.setParameters(parameters);
     }
@@ -85,6 +96,4 @@ public class PdfApi {
 
         return client.send(request);
     }
-
-
 }
