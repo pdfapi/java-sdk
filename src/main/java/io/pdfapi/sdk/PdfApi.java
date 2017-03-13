@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "1.1.0-SNAPSHOT";
+    public static String VERSION = "1.1.1-SNAPSHOT";
 
     private String apiKey;
     private Parameters parameters = new Parameters();

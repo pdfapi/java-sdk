@@ -76,7 +76,7 @@ public class Parameters {
         parameters.put("size", getSize());
         parameters.put("orientation", getOrientation());
         parameters.put("margins", margins != null ? margins.getParameters() : null);
-        parameters.put("pages", pages != null ? pages : null);
+        parameters.put("pages", pages.size() > 0 ? pages : null);
 
         return parameters;
     }
