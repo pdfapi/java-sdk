@@ -1,6 +1,8 @@
 package io.pdfapi.sdk.parameter.page;
 
+import io.pdfapi.sdk.exception.InvalidArgumentException;
 import io.pdfapi.sdk.parameter.Type;
+import io.pdfapi.sdk.util.ObjectUtil;
 
 import java.net.URL;
 
@@ -17,10 +19,14 @@ public class Page {
     }
 
     public Page(URL url) {
+        if (ObjectUtil.isEmpty(url)) throw new InvalidArgumentException("URL cannot be empty");
+
         this.url = url;
     }
 
     public Page(String html) {
+        if (ObjectUtil.isEmpty(html)) throw new InvalidArgumentException("Html cannot be empty");
+
         this.html = html;
     }
 

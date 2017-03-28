@@ -1,11 +1,12 @@
 package io.pdfapi.sdk;
 
+import io.pdfapi.sdk.exception.InvalidArgumentException;
 import io.pdfapi.sdk.exception.PdfApiException;
 import io.pdfapi.sdk.parameter.Margin;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
-import io.pdfapi.sdk.parameter.page.Cover;
 import io.pdfapi.sdk.parameter.page.Page;
+import io.pdfapi.sdk.util.ObjectUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +21,14 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "1.1.1-SNAPSHOT";
+    public static String VERSION = "2.0.0-SNAPSHOT";
 
     private String apiKey;
     private Parameters parameters = new Parameters();
 
     public PdfApi(String apiKey) {
+        if (ObjectUtil.isEmpty(apiKey)) throw new InvalidArgumentException("API key cannot be empty");
+
         this.apiKey = apiKey;
     }
 
@@ -73,12 +76,15 @@ public class PdfApi {
         return parameters.getParameters();
     }
 
-    public InputStream generate() {
-
-        return convert().getContents();
+    public InputStream generate() throws PdfApiException {
+        try {
+            return convert().getContents();
+        } catch (IOException e) {
+            throw new PdfApiException(e);
+        }
     }
 
-    public void save(String location) {
+    public void save(String location) throws PdfApiException {
         try {
             Files.copy(generate(), new File(location).toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -86,7 +92,7 @@ public class PdfApi {
         }
     }
 
-    private PdfApiResponse convert() {
+    private PdfApiResponse convert() throws PdfApiException {
         PdfApiRequest request = new PdfApiRequest();
         request.setMethod("POST");
         request.setEndpoint("/pdf");

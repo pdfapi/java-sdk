@@ -1,5 +1,6 @@
 package io.pdfapi.sdk;
 
+import io.pdfapi.sdk.exception.InvalidArgumentException;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
 import io.pdfapi.sdk.parameter.Type;
@@ -24,6 +25,16 @@ public class PdfApiTest {
     @Test
     public void canCreateNewInstance() {
         assertEquals(PdfApi.class, pdfApi.getClass());
+    }
+
+    @Test(expected = InvalidArgumentException.class)
+    public void cannotCreateNewInstanceApiKeyNull() throws Exception {
+        new PdfApi(null);
+    }
+
+    @Test(expected = InvalidArgumentException.class)
+    public void cannotCreateNewInstanceApiKeyEmpty() throws Exception {
+        new PdfApi("");
     }
 
     @Test

@@ -1,6 +1,5 @@
 package io.pdfapi.sdk;
 
-import io.pdfapi.sdk.exception.PdfApiClientException;
 import org.apache.http.HttpResponse;
 
 import java.io.IOException;
@@ -17,11 +16,7 @@ public class PdfApiResponse {
         this.response = response;
     }
 
-    public InputStream getContents() {
-        try {
-            return response.getEntity().getContent();
-        } catch (IOException e) {
-            throw new PdfApiClientException(e);
-        }
+    InputStream getContents() throws IOException {
+        return response.getEntity().getContent();
     }
 }

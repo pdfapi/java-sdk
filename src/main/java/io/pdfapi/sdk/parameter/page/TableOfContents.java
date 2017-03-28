@@ -12,6 +12,9 @@ public class TableOfContents extends Page {
     protected String headerText;
     protected String styleSheet;
 
+    public TableOfContents() {
+    }
+
     public TableOfContents(URL url) {
         super(url);
         type = Type.toc;
