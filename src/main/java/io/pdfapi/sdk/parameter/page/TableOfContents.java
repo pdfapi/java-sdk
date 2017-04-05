@@ -13,6 +13,8 @@ public class TableOfContents extends Page {
     protected String styleSheet;
 
     public TableOfContents() {
+        super();
+        type = Type.toc;
     }
 
     public TableOfContents(URL url) {

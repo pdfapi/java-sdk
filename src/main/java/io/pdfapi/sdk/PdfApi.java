@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "2.0.0-SNAPSHOT";
+    public static String VERSION = "2.0.1";
 
     private String apiKey;
     private Parameters parameters = new Parameters();
