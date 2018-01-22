@@ -188,4 +188,12 @@ public class PdfApiTest {
         assertEquals("HTML", pdfApi.getParameters().get("html"));
         assertEquals(3, ((List<Page>) pdfApi.getParameters().get("pages")).size());
     }
+
+    @Test
+    public void canSetJavascriptDelay() {
+        Integer delay = 500;
+        pdfApi.setJavascriptDelay(delay);
+
+        assertEquals(delay, pdfApi.getParameters().get("javascriptDelay"));
+    }
 }

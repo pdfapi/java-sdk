@@ -23,6 +23,12 @@ public class Parameters {
     private Margin margins;
     private List<Page> pages = new ArrayList<Page>();
 
+    /**
+     * Delay after page is ready for javascript execution in milliseconds. If your html has no javascript, you can omit
+     * this parameter. If your page has javascript and is not displayed correctly, try increasing this parameter above 500.
+     */
+    private Integer javascriptDelay;
+
     Parameters() {
 
     }
@@ -66,6 +72,10 @@ public class Parameters {
         if (parameters.containsKey("pages")) {
             this.setPages((List<Page>) parameters.get("pages"));
         }
+
+        if (parameters.containsKey("javascriptDelay")) {
+            this.setJavascriptDelay(((Integer) parameters.get("javascriptDelay")));
+        }
     }
 
     public Map<String, Object> getParameters() {
@@ -77,6 +87,7 @@ public class Parameters {
         parameters.put("orientation", getOrientation());
         parameters.put("margins", margins != null ? margins.getParameters() : null);
         parameters.put("pages", pages.size() > 0 ? pages : null);
+        parameters.put("javascriptDelay", javascriptDelay);
 
         return parameters;
     }
@@ -139,5 +150,13 @@ public class Parameters {
 
     public List<Page> getPages() {
         return pages;
+    }
+
+    public Integer getJavascriptDelay() {
+        return javascriptDelay;
+    }
+
+    public void setJavascriptDelay(Integer javascriptDelay) {
+        this.javascriptDelay = javascriptDelay;
     }
 }

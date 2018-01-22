@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "2.0.1";
+    public static String VERSION = "2.1.0";
 
     private String apiKey;
     private Parameters parameters = new Parameters();
@@ -66,6 +66,10 @@ public class PdfApi {
 
     public void addPage(Page page) {
         parameters.addPage(page);
+    }
+
+    public void setJavascriptDelay(Integer delay) {
+        parameters.setJavascriptDelay(delay);
     }
 
     public void setParameters(Map<String, Object> parameters) {
