@@ -7,7 +7,7 @@
 pdfapi.io Java SDK can be installed with [Gradle](https://gradle.org) or [Maven](https://maven.apache.org). Add dependency for Gradle project:
 
 ```gradle
-compile group: 'io.pdfapi', name: 'sdk', version: '2.1.0'
+compile group: 'io.pdfapi', name: 'sdk', version: '2.2.0'
 ```
 
 
