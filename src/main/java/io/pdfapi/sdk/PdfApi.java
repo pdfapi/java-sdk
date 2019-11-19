@@ -21,15 +21,22 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public static String VERSION = "2.1.0";
+    public final static String VERSION = "2.2.0";
+    private final static String BASE_URL = "https://pdfapi.io/api";
 
     private String apiKey;
+    private String baseUrl;
     private Parameters parameters = new Parameters();
 
     public PdfApi(String apiKey) {
+        this(apiKey, BASE_URL);
+    }
+
+    public PdfApi(String apiKey, String baseUrl) {
         if (ObjectUtil.isEmpty(apiKey)) throw new InvalidArgumentException("API key cannot be empty");
 
         this.apiKey = apiKey;
+        this.baseUrl = baseUrl;
     }
 
     public void setContents(String contents) {
@@ -72,6 +79,18 @@ public class PdfApi {
         parameters.setJavascriptDelay(delay);
     }
 
+    public void setWidth(Integer width) {
+        parameters.setWidth(width);
+    }
+
+    public void setHeight(Integer height) {
+        parameters.setHeight(height);
+    }
+
+    public void setZoom(Double zoom) {
+        parameters.setZoom(zoom);
+    }
+
     public void setParameters(Map<String, Object> parameters) {
         this.parameters.setParameters(parameters);
     }
@@ -102,7 +121,7 @@ public class PdfApi {
         request.setEndpoint("/pdf");
         request.setBody(parameters.getParameters());
 
-        PdfApiClient client = new PdfApiClient(apiKey);
+        PdfApiClient client = new PdfApiClient(apiKey, baseUrl);
 
         return client.send(request);
     }

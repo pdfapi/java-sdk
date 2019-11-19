@@ -18,7 +18,6 @@ public class Parameters {
     private String contents;
     private String header;
     private String footer;
-    private Size size;
     private Orientation orientation;
     private Margin margins;
     private List<Page> pages = new ArrayList<Page>();
@@ -29,6 +28,11 @@ public class Parameters {
      */
     private Integer javascriptDelay;
 
+    private Size size;
+    private Integer width;
+    private Integer height;
+    private Double zoom;
+
     Parameters() {
 
     }
@@ -36,7 +40,6 @@ public class Parameters {
     Parameters(Map<String, Object> parameters) {
         setParameters(parameters);
     }
-
 
     void setParameters(Map<String, Object> parameters) {
         if (parameters.containsKey("html")) {
@@ -53,6 +56,18 @@ public class Parameters {
 
         if (parameters.containsKey("size")) {
             this.setSize((Size) parameters.get("size"));
+        }
+
+        if (parameters.containsKey("width")) {
+            this.setWidth((Integer) parameters.get("width"));
+        }
+
+        if (parameters.containsKey("height")) {
+            this.setHeight((Integer) parameters.get("height"));
+        }
+
+        if (parameters.containsKey("zoom")) {
+            this.setZoom((Double) parameters.get("zoom"));
         }
 
         if (parameters.containsKey("orientation")) {
@@ -88,6 +103,9 @@ public class Parameters {
         parameters.put("margins", margins != null ? margins.getParameters() : null);
         parameters.put("pages", pages.size() > 0 ? pages : null);
         parameters.put("javascriptDelay", javascriptDelay);
+        parameters.put("width", getWidth());
+        parameters.put("height", getHeight());
+        parameters.put("zoom", getZoom());
 
         return parameters;
     }
@@ -158,5 +176,29 @@ public class Parameters {
 
     public void setJavascriptDelay(Integer javascriptDelay) {
         this.javascriptDelay = javascriptDelay;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Double getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(Double zoom) {
+        this.zoom = zoom;
     }
 }

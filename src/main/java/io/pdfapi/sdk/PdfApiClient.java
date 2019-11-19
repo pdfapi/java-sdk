@@ -20,19 +20,20 @@ import java.nio.charset.Charset;
  */
 public class PdfApiClient {
 
-    private final static String BASE_URL = "https://pdfapi.io/api";
     private final static String API_VERSION = "1";
 
     private CloseableHttpClient httpClientHandler = HttpClients.createDefault();
 
-    private String apiKey;
+    private final String apiKey;
+    private final String baseUrl;
 
-    PdfApiClient(String apiKey) {
+    PdfApiClient(String apiKey, String baseUrl) {
         this.apiKey = apiKey;
+        this.baseUrl = baseUrl;
     }
 
     PdfApiResponse send(PdfApiRequest request) throws PdfApiException {
-        HttpPost httpPost = new HttpPost(BASE_URL + "/v" + API_VERSION + request.getEndpoint());
+        HttpPost httpPost = new HttpPost(baseUrl + "/v" + API_VERSION + request.getEndpoint());
         httpPost.addHeader("Authorization", "Basic " + new String(Base64.encodeBase64((":" + apiKey).getBytes())));
         httpPost.addHeader("Content-Type", "application/json");
         httpPost.addHeader("User-Agent", "pdfapi.io Java SDK " + PdfApi.VERSION);
