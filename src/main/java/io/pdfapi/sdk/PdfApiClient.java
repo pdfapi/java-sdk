@@ -3,7 +3,6 @@ package io.pdfapi.sdk;
 import com.google.gson.Gson;
 import io.pdfapi.sdk.exception.*;
 import io.pdfapi.sdk.response.ApiErrorResponse;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
@@ -20,21 +19,18 @@ import java.nio.charset.Charset;
  */
 public class PdfApiClient {
 
-    private final static String API_VERSION = "1";
+    private static final String API_VERSION = "1";
 
-    private CloseableHttpClient httpClientHandler = HttpClients.createDefault();
+    private final CloseableHttpClient httpClientHandler = HttpClients.createDefault();
 
-    private final String apiKey;
     private final String baseUrl;
 
-    PdfApiClient(String apiKey, String baseUrl) {
-        this.apiKey = apiKey;
+    PdfApiClient(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
     PdfApiResponse send(PdfApiRequest request) throws PdfApiException {
         HttpPost httpPost = new HttpPost(baseUrl + "/v" + API_VERSION + request.getEndpoint());
-        httpPost.addHeader("Authorization", "Basic " + new String(Base64.encodeBase64((":" + apiKey).getBytes())));
         httpPost.addHeader("Content-Type", "application/json");
         httpPost.addHeader("User-Agent", "pdfapi.io Java SDK " + PdfApi.VERSION);
 
@@ -49,8 +45,6 @@ public class PdfApiClient {
 
         handleBadRequest(response);
 
-        if (isUnauthorized(response)) throw new UnauthorizedException();
-        if (isQuotaExceeded(response)) throw new QuotaExceededException();
         if (isInternalError(response)) throw new InternalServerException();
         if (isServiceUnavailable(response)) throw new ServiceUnavailableException(); // todo: retry
 
@@ -72,14 +66,6 @@ public class PdfApiClient {
 
     private boolean isBadRequest(HttpResponse response) {
         return response.getStatusLine().getStatusCode() == HttpStatus.SC_BAD_REQUEST;
-    }
-
-    private boolean isUnauthorized(HttpResponse response) {
-        return response.getStatusLine().getStatusCode() == HttpStatus.SC_UNAUTHORIZED;
-    }
-
-    private boolean isQuotaExceeded(HttpResponse response) {
-        return response.getStatusLine().getStatusCode() == HttpStatus.SC_PAYMENT_REQUIRED;
     }
 
     private boolean isInternalError(HttpResponse response) {

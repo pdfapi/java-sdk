@@ -1,12 +1,10 @@
 package io.pdfapi.sdk;
 
-import io.pdfapi.sdk.exception.InvalidArgumentException;
 import io.pdfapi.sdk.exception.PdfApiException;
 import io.pdfapi.sdk.parameter.Margin;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
 import io.pdfapi.sdk.parameter.page.Page;
-import io.pdfapi.sdk.util.ObjectUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,22 +19,16 @@ import java.util.Map;
  */
 public class PdfApi {
 
-    public final static String VERSION = "2.2.0";
-    private final static String BASE_URL = "https://pdfapi.io/api";
+    public static final String VERSION = "3.0.0";
+    private final String baseUrl;
+    private final Parameters parameters = new Parameters();
 
-    private String apiKey;
-    private String baseUrl;
-    private Parameters parameters = new Parameters();
-
-    public PdfApi(String apiKey) {
-        this(apiKey, BASE_URL);
+    private PdfApi(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
-    public PdfApi(String apiKey, String baseUrl) {
-        if (ObjectUtil.isEmpty(apiKey)) throw new InvalidArgumentException("API key cannot be empty");
-
-        this.apiKey = apiKey;
-        this.baseUrl = baseUrl;
+    public static PdfApi withBaseUrl(String baseUrl) {
+        return new PdfApi(baseUrl);
     }
 
     public void setContents(String contents) {
@@ -77,6 +69,10 @@ public class PdfApi {
 
     public void setJavascriptDelay(Integer delay) {
         parameters.setJavascriptDelay(delay);
+    }
+
+    public void setDisableSmartShrink(Boolean disableSmartShrink) {
+        parameters.setDisableSmartShrink(disableSmartShrink);
     }
 
     public void setWidth(Integer width) {
@@ -121,7 +117,7 @@ public class PdfApi {
         request.setEndpoint("/pdf");
         request.setBody(parameters.getParameters());
 
-        PdfApiClient client = new PdfApiClient(apiKey, baseUrl);
+        PdfApiClient client = new PdfApiClient(baseUrl);
 
         return client.send(request);
     }

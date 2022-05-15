@@ -15,6 +15,19 @@ import java.util.Map;
  */
 public class Parameters {
 
+    private static final String KEY_HTML = "html";
+    private static final String KEY_HEADER = "header";
+    private static final String KEY_FOOTER = "footer";
+    private static final String KEY_SIZE = "size";
+    private static final String KEY_WIDTH = "width";
+    private static final String KEY_HEIGHT = "height";
+    private static final String KEY_ZOOM = "zoom";
+    private static final String KEY_ORIENTATION = "orientation";
+    private static final String KEY_MARGINS = "margins";
+    private static final String KEY_PAGES = "pages";
+    private static final String KEY_JAVASCRIPT_DELAY = "javascriptDelay";
+    private static final String KEY_DISABLE_SMART_SHRINK = "disableSmartShrink";
+
     private String contents;
     private String header;
     private String footer;
@@ -27,6 +40,8 @@ public class Parameters {
      * this parameter. If your page has javascript and is not displayed correctly, try increasing this parameter above 500.
      */
     private Integer javascriptDelay;
+
+    private Boolean disableSmartShrink;
 
     private Size size;
     private Integer width;
@@ -42,70 +57,75 @@ public class Parameters {
     }
 
     void setParameters(Map<String, Object> parameters) {
-        if (parameters.containsKey("html")) {
-            this.setContents((String) parameters.get("html"));
+        if (parameters.containsKey(KEY_HTML)) {
+            this.setContents((String) parameters.get(KEY_HTML));
         }
 
-        if (parameters.containsKey("header")) {
-            this.setHeader((String) parameters.get("header"));
+        if (parameters.containsKey(KEY_HEADER)) {
+            this.setHeader((String) parameters.get(KEY_HEADER));
         }
 
-        if (parameters.containsKey("footer")) {
-            this.setFooter((String) parameters.get("footer"));
+        if (parameters.containsKey(KEY_FOOTER)) {
+            this.setFooter((String) parameters.get(KEY_FOOTER));
         }
 
-        if (parameters.containsKey("size")) {
-            this.setSize((Size) parameters.get("size"));
+        if (parameters.containsKey(KEY_SIZE)) {
+            this.setSize((Size) parameters.get(KEY_SIZE));
         }
 
-        if (parameters.containsKey("width")) {
-            this.setWidth((Integer) parameters.get("width"));
+        if (parameters.containsKey(KEY_WIDTH)) {
+            this.setWidth((Integer) parameters.get(KEY_WIDTH));
         }
 
-        if (parameters.containsKey("height")) {
-            this.setHeight((Integer) parameters.get("height"));
+        if (parameters.containsKey(KEY_HEIGHT)) {
+            this.setHeight((Integer) parameters.get(KEY_HEIGHT));
         }
 
-        if (parameters.containsKey("zoom")) {
-            this.setZoom((Double) parameters.get("zoom"));
+        if (parameters.containsKey(KEY_ZOOM)) {
+            this.setZoom((Double) parameters.get(KEY_ZOOM));
         }
 
-        if (parameters.containsKey("orientation")) {
-            this.setOrientation((Orientation) parameters.get("orientation"));
+        if (parameters.containsKey(KEY_ORIENTATION)) {
+            this.setOrientation((Orientation) parameters.get(KEY_ORIENTATION));
         }
 
-        if (parameters.containsKey("margins")) {
+        if (parameters.containsKey(KEY_MARGINS)) {
             Margin margins = new Margin();
 
             @SuppressWarnings("unchecked")
-            Map<String, Integer> map = (Map<String, Integer>) parameters.get("margins");
+            Map<String, Integer> map = (Map<String, Integer>) parameters.get(KEY_MARGINS);
 
             margins.setParameters(map);
             this.setMargins(margins);
         }
 
-        if (parameters.containsKey("pages")) {
-            this.setPages((List<Page>) parameters.get("pages"));
+        if (parameters.containsKey(KEY_PAGES)) {
+            this.setPages((List<Page>) parameters.get(KEY_PAGES));
         }
 
-        if (parameters.containsKey("javascriptDelay")) {
-            this.setJavascriptDelay(((Integer) parameters.get("javascriptDelay")));
+        if (parameters.containsKey(KEY_JAVASCRIPT_DELAY)) {
+            this.setJavascriptDelay(((Integer) parameters.get(KEY_JAVASCRIPT_DELAY)));
+        }
+
+        if (parameters.containsKey(KEY_DISABLE_SMART_SHRINK)) {
+            this.setDisableSmartShrink(((Boolean) parameters.get(KEY_DISABLE_SMART_SHRINK)));
         }
     }
 
     public Map<String, Object> getParameters() {
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("html", getContents());
-        parameters.put("header", getHeader());
-        parameters.put("footer", getFooter());
-        parameters.put("size", getSize());
-        parameters.put("orientation", getOrientation());
-        parameters.put("margins", margins != null ? margins.getParameters() : null);
-        parameters.put("pages", pages.size() > 0 ? pages : null);
-        parameters.put("javascriptDelay", javascriptDelay);
-        parameters.put("width", getWidth());
-        parameters.put("height", getHeight());
-        parameters.put("zoom", getZoom());
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put(KEY_HTML, getContents());
+        parameters.put(KEY_HEADER, getHeader());
+        parameters.put(KEY_FOOTER, getFooter());
+        parameters.put(KEY_SIZE, getSize());
+        parameters.put(KEY_ORIENTATION, getOrientation());
+        parameters.put(KEY_MARGINS, margins != null ? margins.getParameters() : null);
+        parameters.put(KEY_PAGES, pages.size() > 0 ? pages : null);
+        parameters.put(KEY_JAVASCRIPT_DELAY, javascriptDelay);
+        parameters.put(KEY_DISABLE_SMART_SHRINK, disableSmartShrink);
+        parameters.put(KEY_WIDTH, getWidth());
+        parameters.put(KEY_HEIGHT, getHeight());
+        parameters.put(KEY_ZOOM, getZoom());
 
         return parameters;
     }
@@ -176,6 +196,14 @@ public class Parameters {
 
     public void setJavascriptDelay(Integer javascriptDelay) {
         this.javascriptDelay = javascriptDelay;
+    }
+
+    public Boolean getDisableSmartShrink() {
+        return disableSmartShrink;
+    }
+
+    public void setDisableSmartShrink(Boolean disableSmartShrink) {
+        this.disableSmartShrink = disableSmartShrink;
     }
 
     public Integer getWidth() {

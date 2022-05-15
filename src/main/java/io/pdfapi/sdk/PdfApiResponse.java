@@ -10,7 +10,7 @@ import java.io.InputStream;
  */
 public class PdfApiResponse {
 
-    private HttpResponse response;
+    private final HttpResponse response;
 
     PdfApiResponse(HttpResponse response) {
         this.response = response;

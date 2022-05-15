@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/pdfapi/java-sdk.svg?branch=master)](https://travis-ci.org/pdfapi/java-sdk)
-
 # pdfapi.io SDK for Java
 
 ## Installation
@@ -7,13 +5,18 @@
 pdfapi.io Java SDK can be installed with [Gradle](https://gradle.org) or [Maven](https://maven.apache.org). Add dependency for Gradle project:
 
 ```gradle
-compile group: 'io.pdfapi', name: 'sdk', version: '2.2.0'
+# Add Bitweb's public Maven repository
+maven {
+    url "https://nexus.bitweb.ee/repository/maven-public/"
+}
+
+implementation group: 'io.pdfapi', name: 'sdk', version: '3.0.0'
 ```
 
 
 ## Usage
 
-Usage of pdfapi.io PHP SDK is very simple. The easyest way to get started is:
+Usage of pdfapi.io PHP SDK is very simple. The easiest way to get started is:
 
 ```java
 
@@ -64,7 +67,7 @@ String footer = "<html>\n" +
         "  </body>\n" +
         "</html>";
 
-PdfApi pdf = new PdfApi("YOUR_API_KEY");
+PdfApi pdf = PdfApi.withBaseUrl("http://pdfapi");
 pdf.setHtml(template);
 pdf.setHeader(header);
 pdf.setFooter(footer);
@@ -78,5 +81,3 @@ InputStream rawPdf = pdf.generate();
 pdf.save("/path/to/file.pdf");
 
 ```
-
-For getting API KEY you need to register account at https://pdfapi.io. Generating API KEY will take you 10 seconds. And it is free. Really.

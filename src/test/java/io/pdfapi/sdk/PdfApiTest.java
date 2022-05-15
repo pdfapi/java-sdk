@@ -1,6 +1,5 @@
 package io.pdfapi.sdk;
 
-import io.pdfapi.sdk.exception.InvalidArgumentException;
 import io.pdfapi.sdk.parameter.Orientation;
 import io.pdfapi.sdk.parameter.Size;
 import io.pdfapi.sdk.parameter.Type;
@@ -20,21 +19,11 @@ import static org.junit.Assert.*;
  */
 public class PdfApiTest {
 
-    private PdfApi pdfApi = new PdfApi("apiKey");
+    private PdfApi pdfApi = PdfApi.withBaseUrl("http://localhost:4000");
 
     @Test
     public void canCreateNewInstance() {
         assertEquals(PdfApi.class, pdfApi.getClass());
-    }
-
-    @Test(expected = InvalidArgumentException.class)
-    public void cannotCreateNewInstanceApiKeyNull() throws Exception {
-        new PdfApi(null);
-    }
-
-    @Test(expected = InvalidArgumentException.class)
-    public void cannotCreateNewInstanceApiKeyEmpty() throws Exception {
-        new PdfApi("");
     }
 
     @Test
@@ -195,5 +184,14 @@ public class PdfApiTest {
         pdfApi.setJavascriptDelay(delay);
 
         assertEquals(delay, pdfApi.getParameters().get("javascriptDelay"));
+    }
+
+    @Test
+    public void canSetDisableSmartShrink() {
+        assertNull(pdfApi.getParameters().get("disableSmartShrink"));
+
+        pdfApi.setDisableSmartShrink(true);
+
+        assertEquals(true, pdfApi.getParameters().get("disableSmartShrink"));
     }
 }
