@@ -81,3 +81,13 @@ InputStream rawPdf = pdf.generate();
 pdf.save("/path/to/file.pdf");
 
 ```
+
+## Release notes
+
+### 3.0.0
+
+This release requires version 29 or later of pdf-api Docker container!
+
+* Added option to disable smart shrink (enabled by default to be backwards compatible)
+* BREAKING: Removed anything related to api keys and quotas
+* BREAKING: Removed public PdfApi constructors, use `PdfApi.withBaseUrl(String baseUrl)` instead
