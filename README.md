@@ -10,7 +10,7 @@ maven {
     url "https://nexus.bitweb.ee/repository/maven-public/"
 }
 
-implementation group: 'io.pdfapi', name: 'sdk', version: '3.0.0'
+implementation group: 'io.pdfapi', name: 'sdk', version: '3.1.0'
 ```
 
 
@@ -83,6 +83,10 @@ pdf.save("/path/to/file.pdf");
 ```
 
 ## Release notes
+
+### 3.1.0
+
+* Restore Java 8 compatibility
 
 ### 3.0.0
 
