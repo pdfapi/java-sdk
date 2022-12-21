@@ -16,7 +16,7 @@ implementation group: 'io.pdfapi', name: 'sdk', version: '3.1.0'
 
 ## Usage
 
-Usage of pdfapi.io PHP SDK is very simple. The easiest way to get started is:
+Usage of pdfapi PHP SDK is very simple. The easiest way to get started is:
 
 ```java
 
@@ -31,7 +31,7 @@ String template = "<html>\n" +
         "    </body>\n" +
         "</html>";
 
-PdfApi pdf = new PdfApi("YOUR_API_KEY");
+PdfApi pdf = PdfApi.withBaseUrl("http://pdfapi:400/api");
 pdf.setHtml(template);
 
 InputStream rawPdf = pdf.generate();
@@ -67,7 +67,7 @@ String footer = "<html>\n" +
         "  </body>\n" +
         "</html>";
 
-PdfApi pdf = PdfApi.withBaseUrl("http://pdfapi");
+PdfApi pdf = PdfApi.withBaseUrl("http://pdfapi:400/api");
 pdf.setHtml(template);
 pdf.setHeader(header);
 pdf.setFooter(footer);
